@@ -835,6 +835,94 @@ paths:
           $ref: '#/components/responses/429'
         '500':
           $ref: '#/components/responses/500'
+
+  /places:
+    get:
+      tags:
+        - Places
+      summary: Get all places
+      operationId: getPlaces
+      responses:
+        '200':
+          description: List of places
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Place'
+        '400':
+          $ref: '#/components/responses/400'
+        '403':
+          $ref: '#/components/responses/403'
+        '404':
+          $ref: '#/components/responses/404'
+        '429':
+          $ref: '#/components/responses/429'
+        '500':
+          $ref: '#/components/responses/500'
+    put:
+      tags:
+        - Places
+      summary: Create place
+      operationId: createOrUpdatePlace
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Place'
+      responses:
+        '200':
+          description: List of places
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Place'
+        '400':
+          $ref: '#/components/responses/400'
+        '403':
+          $ref: '#/components/responses/403'
+        '404':
+          $ref: '#/components/responses/404'
+        '429':
+          $ref: '#/components/responses/429'
+        '500':
+          $ref: '#/components/responses/500'
+
+  /places/{id}:
+    get:
+      tags:
+        - Place
+      summary: Get Place By Id
+      operationId: getPlaceById
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Identified place
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Place'
+        '400':
+          $ref: '#/components/responses/400'
+        '403':
+          $ref: '#/components/responses/403'
+        '404':
+          $ref: '#/components/responses/404'
+        '429':
+          $ref: '#/components/responses/429'
+        '500':
+          $ref: '#/components/responses/500'
+
+
 components:
   securitySchemes:
     BearerAuth:
@@ -872,6 +960,7 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/InternalServerException'
+
   schemas:
     Whoami:
       properties:
@@ -1048,6 +1137,18 @@ components:
     PageSize:
       type: integer
       description: Cannot exceed `500`
+    Place:
+      type: object
+      properties:
+        id:
+          type: string
+          example: "uuid"
+        location:
+          type: string
+          example: "HEI"
+        city:
+          type: string
+          example: "Ivandry - Antananarivo"
 
     Exception:
       type: object
